@@ -1,0 +1,92 @@
+Mac mavericks finding the E20 connected by USB port (left side)
+ $ ls -1 /dev/tty*USB*
+ /dev/tty.SLAB_USBtoUART
+
+```
+sudo screen /dev/tty*USB* 115200
+```
+Enter the local system sudo password.
+
+Initial login credentials:
+o Username: snap
+o Password: synapse
+o Add a new password and remember it somewhere
+
+The E20 initial state
+* Is a wi-fi access point
+* has ssh enabled
+
+Connect via ssh
+* Connect with wired internet
+* figure out the ip address 
+ * from router by matching the MAC address
+ * through serial connection then doing ifconfig
+
+  ssh snap@192.168.1.51
+
+To avoid having to keep entering a password, copy ssh keys to the snap.
+  ssh-copy-id snap@192.168.1.51
+
+------
+Installing based instructions found here
+https://developer.synapse-wireless.com/software/snapconnect/index.html
+
+------
+Update ubuntu and pip - decline offers for maintainers version
+
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo pip install --upgrade pip
+sudo pip install -U pip setuptools
+sudo pip install virtualenvwrapper
+```
+
+Setup virtualenv by adding these lines to .bashrc
+
+```
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/<your-dir>
+source /usr/local/bin/virtualenvwrapper.sh
+```
+
+Log out and back in after changing .bashrc
+
+Make a virtualenv
+```
+mkvirtualenv snap_env
+```
+
+Use a virtualenv
+```
+workon snap_env
+```
+
+Install snapconnect -- I'm ignoring warnings: SNIMissingWarning, InsecurePlatformWarning 
+```
+pip install --extra-index-url https://update.synapse-wireless.com/pypi snapconnect
+```
+
+Should be gtg with SNAP  
+-----
+
+Adding customizations to e20
+
+```
+sudo apt-get install git
+```
+
+Create ssh keys for git repo, and add them to your git repo
+```
+ssh-keygen  # accept all defaults
+cat ~/.ssh/id_rsa.pub
+# Copy the public key to your repo
+```
+
+-----
+run the scripts/led-dance
+ sudo scripts/led-dance.sh
+
+Load a node with MyNode.py
+ scripts/run-app.sh
+----

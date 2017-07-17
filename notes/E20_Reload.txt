@@ -1,0 +1,22 @@
+https://developer.synapse-wireless.com/gateways/e20/restore.html
+
+Using some raspberry PI
+
+Uncompress the img file
+
+Plug in SD card into mac
+Determine the disk name
+```
+diskutil list
+```
+
+Copy the img file to the SD card
+(assuming /dev/disk1 for this example)
+
+```
+DEV_SD=/dev/disk1
+IMG=e20-1.0.11-0-g5529fc7-2017-04-20-sdcard
+diskutil unmountDisk $DEV_SD
+sudo dd bs=1m if=$IMG.img of=$DEV_SD
+```
+

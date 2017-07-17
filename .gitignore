@@ -1,0 +1,14 @@
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+*.o
+*.d
+.vs
+*.pyc
+*.pyo
+objs/
+lib/
+Debug/
+*_test
+log/
+nvparams.dat
